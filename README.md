@@ -396,6 +396,6 @@ python main.py --min_obs 50
 
 <div align="center">
 
-*Được phát triển với QuangTrucSieuCapDepTrai*
+*Được phát triển với QuangTrucSieuCapVipVuTruPro*
 
 </div>
