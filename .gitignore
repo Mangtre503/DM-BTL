@@ -170,6 +170,10 @@ datasets/
 raw_data/
 data/raw/
 dataset/
+datasets_all/
+
+
+
 
 # Cleaned/processed data (có thể tái tạo từ pipeline)
 clean_dataset/
