@@ -7,6 +7,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
+from sklearn.tree import DecisionTreeRegressor  
 import math
 
 # ===============================
@@ -24,13 +25,14 @@ y = df['Close']
 # Chia train/test
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
 
-# ===============================
-# 2️⃣ Define Models
-# ===============================
+
+# Define Models
+
 models = {
     "LinearRegression": LinearRegression(),
     "RandomForest": RandomForestRegressor(n_estimators=100, random_state=42),
-    "SVR": SVR(kernel='rbf')
+    "SVR": SVR(kernel='rbf'),
+    "DecisionTree": DecisionTreeRegressor(random_state=42) 
 }
 
 # ===============================
