@@ -74,13 +74,14 @@ features_to_scale = [
     'Close_lag1', 'Close_lag2', 'Close_lag3',
     'Volume_lag1',
     'MA5', 'MA10', 'MA20',
-    'STD5', 'STD1clean0',
+    'STD5', 'STD10',
     'TR', 'ATR14'
 ]
 
 scaler = MinMaxScaler()
 df[features_to_scale] = scaler.fit_transform(df[features_to_scale])
 
+# Không scale: DayOfWeek, Date, Target_Close
 
 # ========= 7. Save Cleaned + Engineered Data =========
 output_folder = "clean_data_set"
