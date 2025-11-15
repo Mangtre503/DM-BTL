@@ -12,20 +12,34 @@ from xgboost import XGBRegressor
 import math
 
 
-# 1 Load Cleaned Dataset
-
+# 1️⃣ Load Cleaned Dataset
 df = pd.read_csv("clean_data_set/cleaned_stock_data.csv")
 
 
-# Chọn features và target
-X = df[['Open', 'High', 'Low', 'Volume', 'Return']]
-y = df['Close']
+# 2️⃣ Chọn đúng features và target để dự đoán Close ngày mai
 
-# Chia train/test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
+feature_columns = [
+    'Open', 'High', 'Low', 'Volume',
+    'Return',
+    'Close_lag1', 'Close_lag2', 'Close_lag3',
+    'Volume_lag1',
+    'MA5', 'MA10', 'MA20',
+    'STD5', 'STD10',
+    'ATR14', 'TR',
+    'DayOfWeek'
+]
 
-# 2️ Define Models
+X = df[feature_columns]
+y = df['Target_Close']     # chính xác: giá Close của ngày mai
 
+
+# 3️⃣ Chia train/test theo time-series (không shuffle)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, shuffle=False
+)
+
+
+# 4️⃣ Define Models
 models = {
     "RandomForest": RandomForestRegressor(n_estimators=100, random_state=42),
     "SVR": SVR(kernel='rbf'),
@@ -40,12 +54,12 @@ models = {
     )
 }
 
-# 3️ Create result folder
 
+# 5️⃣ Create result folder
 os.makedirs("result", exist_ok=True)
 
 
-# 4️ Train & Evaluate Models
+# 6️⃣ Train & Evaluate Models
 
 results = []
 
@@ -62,8 +76,7 @@ for name, model in models.items():
 
     # --- Save predictions ---
     pred_df = pd.DataFrame({
-        'Date': df.iloc[y_test.index]['Date'],
-        'Actual': y_test,
+        'Actual': y_test.values,
         'Predicted': y_pred
     })
     pred_df.to_csv(f"result/{name}.csv", index=False)
@@ -78,7 +91,7 @@ for name, model in models.items():
     })
 
 
-# 5️ Save Evaluation Table
+# 7️⃣ Save Evaluation Table
 
 eval_df = pd.DataFrame(results)
 eval_df.to_csv("result/evaluate_model.csv", index=False)
