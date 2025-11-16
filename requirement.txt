@@ -9,6 +9,7 @@ kagglehub==0.3.13
 kiwisolver==1.4.9
 matplotlib==3.10.7
 numpy==2.3.4
+nvidia-nccl-cu12==2.28.7
 packaging==25.0
 pandas==2.3.3
 pillow==12.0.0
@@ -24,3 +25,4 @@ threadpoolctl==3.6.0
 tqdm==4.67.1
 tzdata==2025.2
 urllib3==2.5.0
+xgboost==3.1.1
